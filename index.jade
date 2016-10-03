@@ -1,0 +1,33 @@
+//- ----------------------------------
+//- 💥 DEMOS > DISPLACY ENT
+//- ----------------------------------
+
+include _mixins
+
+header.o-banner
+    h1.u-heading-1=title
+    p.o-block.u-text-medium.
+        Enter your text below to explore spaCy's default entity recognition model. You can use the drop-down menu to select the entity types you're interested in.
+
+    +textarea("Your text here...")#input
+        +search("large")#submit
+
+    .o-form
+        +dropdown("checkbox", "ents", "Entities", { person: "PERSON", norp: "NORP", facility: "FACILITY", org: "ORG", gpe: "GPE", loc: "LOC", product: "PRODUCT", "event": "EVENT", work_of_art: "WORK OF ART", language: "LANGUAGE", date: "DATE", time: "TIME", percent: "PERCENT", money: "MONEY", quantity: "QUANTITY", ordinal: "ORDINAL", cardinal: "CARDINAL" }, [ "person", "org", "gpe", "loc", "product", "date", "time" ])
+
+        +dropdown("radio", "model", "Model", { en: "English (v0.101.0)", de: "German (v0.101.0)" }, "en")
+
+.o-container.u-text-medium.entities#displacy
+
+footer.o-banner
+    h2.u-heading-2 Copy markup
+    p.o-block.
+        Here's everything you need to export and style the annotations. We &hearts; web standards!#[br]
+
+        #[strong Tip:] Copy-paste this over to #[+a("https://codepen.io") CodePen] for the quickest results.
+
+    .o-form
+        each area in ["HTML", "CSS"]
+            +textarea(area + " code here...", area).u-code.u-text-small(id=area.toLowerCase())
+
++error("Oops, something went wrong. Please try again!")

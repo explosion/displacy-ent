@@ -1,0 +1,39 @@
+//- ----------------------------------
+//- 💥 DISPLACY ENT
+//- ----------------------------------
+
+$entities: ( person: #a6e22d, norp: #e00084, facility: #43c6fc, org: #43c6fc, gpe: #fd9720, loc: #fd9720, product: #8e7dff, event: #ffcc00, work_of_art: #ffcc00, language: #ffcc00, date: #2fbbab, time: #2fbbab, percent: #999, money: #999, quantity: #999, ordinal: #999, cardinal: #999 )
+
+.entities
+    line-height: 2
+
+[data-entity]
+    padding: 0.25em 0.35em
+    margin: 0 0.25em
+    line-height: 1
+    display: inline-block
+    border-radius: 0.25em
+    border: 1px solid
+
+    &:after
+        box-sizing: border-box
+        content: attr(data-entity)
+        font-size: 0.6em
+        line-height: 1
+        padding: 0.35em 0.35em
+        border-radius: 0.35em
+        text-transform: uppercase
+        display: inline-block
+        vertical-align: middle
+        margin: 0 0 0.1rem 0.5rem
+
+    @each $entity, $color in $entities
+        &[data-entity="#{$entity}"]
+            background: rgba($color, 0.2)
+            border-color: $color
+
+            &:after
+                background: $color
+
+            // &[data-entity="#{$entity}"] ~ &[data-entity="#{$entity}"]:after
+                display: none
