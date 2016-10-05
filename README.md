@@ -4,6 +4,8 @@
 
 Data exploration is an important part of effective named entity recognition because systems often make common unexpected errors that are easily fixed once identified. Despite the apparent simplicity of the task, automatic named entity recognition systems still make many errors, unless trained on examples closely tailored to the use-case. Check out the [demo](https://demos.explosion.ai/displacy-ent) to visualise [spaCy](https://spacy.io)'s guess at the named entities in the document. You can filter the displayed types, to only show the annotations you're interested in.
 
+To read more about displaCy-ent.js, check out the [blog post](https://explosion.ai/blog/displacy-ent-named-entity-visualizer).
+
 ## Run the demo
 
 This demo is implemented in [Jade (aka Pug)](https://www.jade-lang.org), an extensible templating language that compiles to HTML, and is built or served by [Harp](https://harpjs.com). To serve it locally on [http://localhost:9000](http://localhost:9000), simply run:
