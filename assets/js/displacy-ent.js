@@ -20,7 +20,7 @@ class displaCyENT {
 
     }
 
-    parse(text = this.defaultText, model = this.defaultModel, ents = []) {
+    parse(text = this.defaultText, model = this.defaultModel, ents = this.defaultEnts) {
         if(typeof this.onStart === 'function') this.onStart();
 
         let xhr = new XMLHttpRequest();
