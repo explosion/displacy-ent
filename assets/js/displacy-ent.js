@@ -46,6 +46,7 @@ class displaCyENT {
     }
 
     render(text, spans, ents) {
+        this.container.innerHTML = '';
         let offset = 0;
 
         spans.forEach(({ type, start, end }) => {
