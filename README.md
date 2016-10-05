@@ -16,6 +16,62 @@ harp server
 
 The demo is written in ECMAScript 6. For full, cross-browser compatibility, make sure to use a compiler like [Babel](https://github.com/babel/babel). For more info, see this [compatibility table](https://kangax.github.io/compat-table/es6/).
 
+## Using displacy-ent.js
+
+To use displaCy ENT in your project, include [`displacy-ent.js`](assets/js/displacy-ent.js) from GitHub or via npm:
+
+```bash
+npm install displacy-ent
+```
+
+Then initialize a new instance specifying the API and settings:
+
+```javascript
+const displacy = new displaCyENT('http://localhost:8000', {
+    container: '#displacy',
+    defaultText: 'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.',
+    defaultEnts: ['person', 'org', 'date']
+});
+```
+
+Our service that produces the input data is open source, too. You can find it at [spacy-services](https://github.com/explosion/spacy-services).
+
+The following settings are available:
+
+| Setting | Description | Default |
+| --- | --- | --- |
+| **container** | element to display text in, can be any query selector | `#displacy` |
+| **defaultText** | text used if displaCy ENT is run without text specified | `'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.'` |
+| **defaultModel** | model used if displaCy ENT is run without model specified | `'en'` |
+| **defaultEnts** | array of entities highlighted in text | `['person', 'org', 'gpe', 'loc', 'product']` |
+| **onStart** | function to be executed on start of server request | `false` |
+| **onSuccess** | callback function to be executed on successful server response | `false` |
+| **onRender** | callback function to be executed when visualisation has rendered | `false` |
+| **onError** | function to be executed if request fails | `false` |
+
+## Visualising Entities
+
+The `parse(text, model, ents)` method renders a text for a given set of entities in the container.
+
+```javascript
+const text = 'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.';
+const model = 'en';
+const ents = ['person', 'org', 'date'];
+
+displacy.parse(text, model, ents);
+```
+
+## Rendering Entities Manually
+
+Alternatively, you can use `render()` to manually render a text and its entity spans for a given set of entities:
+
+```javascript
+const text = 'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.';
+const spans = [ { end: 20, start: 5, type: "PERSON" }, { end: 67, start: 61, type: "ORG" }, { end: 75, start: 71, type: "DATE" } ];
+const ents = ['person', 'org', 'gpe', 'loc', 'product'];
+
+displacy.render(text, spans, ents);
+```
 ## How it works
 
 displaCy ENT uses only the `<mark>` element with data attributes and custom CSS styling. No additional, visible content or markup is added to your input text and no JavaScript is required to display the entities.
@@ -88,54 +144,3 @@ And here is the CSS it needs to display the entity labels:
 ```
 
 Entity labels are taken from the `data-entity` attribute and are rendered after the span as a CSS pseudo element.
-
-## Using displacy-ent.js
-
-To use displaCy ENT in your project, include [`displacy-ent.js`](assets/js/displacy-ent.js) and initialize a new instance specifying the API and settings:
-
-```javascript
-const displacy = new displaCyENT('http://localhost:8000', {
-    container: '#displacy',
-    defaultText: 'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.',
-    defaultEnts: ['person', 'org', 'date']
-});
-```
-
-Our service that produces the input data is open source, too. You can find it at [spacy-services](https://github.com/explosion/spacy-services).
-
-The following settings are available:
-
-| Setting | Description | Default |
-| --- | --- | --- |
-| **container** | element to display text in, can be any query selector | `#displacy` |
-| **defaultText** | text used if displaCy ENT is run without text specified | `'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.'` |
-| **defaultModel** | model used if displaCy ENT is run without model specified | `'en'` |
-| **defaultEnts** | array of entities highlighted in text | `['person', 'org', 'gpe', 'loc', 'product']` |
-| **onStart** | function to be executed on start of server request | `false` |
-| **onSuccess** | callback function to be executed on successful server response | `false` |
-| **onRender** | callback function to be executed when visualisation has rendered | `false` |
-| **onError** | function to be executed if request fails | `false` |
-
-## Visualising Entities
-
-The `parse(text, model, ents)` method renders a text for a given set of entities in the container.
-
-```javascript
-const text = 'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.';
-const model = 'en';
-const ents = ['person', 'org', 'date'];
-
-displacy.parse(text, model, ents);
-```
-
-## Rendering Entities Manually
-
-Alternatively, you can use `render()` to manually render a text and its entity spans for a given set of entities:
-
-```javascript
-const text = 'When Sebastian Thrun started working on self-driving cars at Google in 2007, few people outside of the company took him seriously.';
-const spans = [ { end: 20, start: 5, type: "PERSON" }, { end: 67, start: 61, type: "ORG" }, { end: 75, start: 71, type: "DATE" } ];
-const ents = ['person', 'org', 'gpe', 'loc', 'product'];
-
-displacy.render(text, spans, ents);
-```
