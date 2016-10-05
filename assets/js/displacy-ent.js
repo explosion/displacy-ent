@@ -73,6 +73,8 @@ class displaCyENT {
 
         this.container.appendChild(document.createTextNode(text.slice(offset, text.length)));
 
+        console.log(`%c💥  HTML markup\n%c<div class="entities">${this.container.innerHTML}</div>`, 'font: bold 16px/2 arial, sans-serif', 'font: 13px/1.5 Consolas, "Andale Mono", Menlo, Monaco, Courier, monospace');
+
         if(typeof this.onRender === 'function') this.onRender();
     }
 }
