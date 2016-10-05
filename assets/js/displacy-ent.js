@@ -47,18 +47,32 @@ class displaCyENT {
 
     render(text, spans, ents) {
         let offset = 0;
-        let fragments = [];
 
         spans.forEach(({ type, start, end }) => {
-            fragments.push(
-                text.slice(offset, start),
-                (ents.includes(type.toLowerCase())) ? `<mark data-entity="${type.toLowerCase()}">${text.slice(start, end)}</mark>` : text.slice(start, end)
-            );
+            const entity = text.slice(start, end);
+            const fragments = text.slice(offset, start).split('\n');
+
+            fragments.forEach((fragment, i) => {
+                this.container.appendChild(document.createTextNode(fragment));
+                if(fragments.length > 1 && i != fragments.length - 1) this.container.appendChild(document.createElement('br'));
+            });
+
+            if(ents.includes(type.toLowerCase())) {
+                const mark = document.createElement('mark');
+                mark.setAttribute('data-entity', type.toLowerCase());
+                mark.appendChild(document.createTextNode(entity));
+                this.container.appendChild(mark);
+            }
+
+            else {
+                this.container.appendChild(document.createTextNode(entity));
+            }
+
             offset = end;
         });
 
-        fragments.push(text.slice(offset, text.length));
-        this.container.innerHTML = fragments.join('').replace(/\n/g, '<br />');
+        this.container.appendChild(document.createTextNode(text.slice(offset, text.length)));
+
         if(typeof this.onRender === 'function') this.onRender();
     }
 }
