@@ -2,6 +2,13 @@
 
 # displaCy ENT: A modern named entity visualiser
 
+> ⚠️ **As of v2.0.0, the displaCy visualizers are now integrated into
+> the core library. [See here](https://spacy.io/usage/visualizers) for more 
+> details on how to visualize a `Doc` object from within spaCy. We're also
+> working on a new suite of tools for serving and testing spaCy models. The
+> code of the standalone visualizers will still be available on GitHub, just
+> not actively maintained.**
+
 Data exploration is an important part of effective named entity recognition because systems often make common unexpected errors that are easily fixed once identified. Despite the apparent simplicity of the task, automatic named entity recognition systems still make many errors, unless trained on examples closely tailored to the use-case. Check out the [demo](https://demos.explosion.ai/displacy-ent) to visualise [spaCy](https://spacy.io)'s guess at the named entities in the document. You can filter the displayed types, to only show the annotations you're interested in.
 
 To read more about displaCy-ent.js, check out the [blog post](https://explosion.ai/blog/displacy-ent-named-entity-visualizer).
